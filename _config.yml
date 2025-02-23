@@ -1,0 +1,68 @@
+# Site
+title: 技术探索者日志
+subtitle: '编程与硬件的跨界之旅'
+description: '记录Java/C++学习、自动化项目开发、硬件实验的技术博客'
+keywords: 编程学习,Python自动化,树莓派,Arduino
+author: wai666
+language: zh-CN
+
+# URL 
+url: https://wai666.github.io/myGcode
+permalink: :category/:title/
+
+# Directory
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: code
+
+# Writing
+post_asset_folder: true
+syntax_highlighter: prismjs
+
+# 高亮配置
+highlight:
+  enable: true  # Enable syntax highlighting
+  prism_plugin:    # Correct section for prism plugin
+    theme: tomorrow
+    line_number: true
+    preprocess: true
+
+# 导航菜单
+menu:
+  首页: /
+  学习记录: /study/
+  项目实战: /project/
+  资源中心: /resource/
+  每日一练: /daily/
+  问答社区: /qa/
+
+# 分类映射
+category_map:
+  study: 学习记录
+  project: 项目实战
+  resource: 资源中心
+
+deploy:
+  type: git
+  repo: https://github.com/wai666/myGcode.git  # 这里使用你的 GitHub 仓库地址
+  branch: gh-pages
+  message: "站点更新：{{ now('YYYY-MM-DD HH:mm:ss') }}"  # 提交更新信息时使用当前时间
+
+
+# 主题
+theme: next
+
+prism_plugin:
+  mode: 'preprocess'
+  theme: 'tomorrow'
+  line_number: true
+  custom_css: '/css/prism-custom.css'
+
+obsidian_mode:
+  enable: true
+  features:
+    - backlinks # 反向链接
+    - graph-view # 关系图谱
+    - daily-notes # 日记功能
+  css: /css/obsidian.css
