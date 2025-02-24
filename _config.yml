@@ -1,4 +1,6 @@
-# Site
+# _config.yml
+
+# Site 基础配置
 title: 技术探索者日志
 subtitle: '编程与硬件的跨界之旅'
 description: '记录Java/C++学习、自动化项目开发、硬件实验的技术博客'
@@ -6,27 +8,38 @@ keywords: 编程学习,Python自动化,树莓派,Arduino
 author: wai666
 language: zh-CN
 
-# URL 
+# URL 配置（保留线上地址）
 url: https://wai666.github.io/myGcode
+root: /myGcode/  # 必须添加此项确保资源路径正确
 permalink: :category/:title/
 
-# Directory
+# Server 配置（本地开发专用）
+server:
+  port: 5000
+  compress: true
+  header: true
+  logger: true
+
+# 目录结构
 tag_dir: tags
 archive_dir: archives
 category_dir: categories
 code_dir: code
 
-# Writing
+# 写作配置
 post_asset_folder: true
-syntax_highlighter: prismjs
+syntax_highlighter: prismjs  # 明确指定使用 Prism.js
 
-# 高亮配置
+# 高亮配置（禁用默认 highlight）
 highlight:
-  enable: true  # Enable syntax highlighting
-  prism_plugin:    # Correct section for prism plugin
-    theme: tomorrow
-    line_number: true
-    preprocess: true
+  enable: false  # 关闭默认高亮
+
+prism_plugin:
+  mode: 'preprocess'
+  theme: 'tomorrow'
+  line_number: true
+  preprocess: true
+  custom_css: '/css/prism-custom.css'
 
 # 导航菜单
 menu:
@@ -43,26 +56,21 @@ category_map:
   project: 项目实战
   resource: 资源中心
 
+# 部署配置（使用 SSH 更安全）
 deploy:
   type: git
-  repo: https://github.com/wai666/myGcode.git  # 这里使用你的 GitHub 仓库地址
+  repo: git@github.com:wai666/myGcode.git  # 改为 SSH 地址
   branch: gh-pages
-  message: "站点更新：{{ now('YYYY-MM-DD HH:mm:ss') }}"  # 提交更新信息时使用当前时间
+  message: "站点更新：{{ now('YYYY-MM-DD HH:mm:ss') }}"
 
-
-# 主题
+# 主题配置
 theme: next
 
-prism_plugin:
-  mode: 'preprocess'
-  theme: 'tomorrow'
-  line_number: true
-  custom_css: '/css/prism-custom.css'
-
+# Obsidian 模式配置（需确认主题支持）
 obsidian_mode:
   enable: true
   features:
-    - backlinks # 反向链接
-    - graph-view # 关系图谱
-    - daily-notes # 日记功能
+    - backlinks
+    - graph-view
+    - daily-notes
   css: /css/obsidian.css

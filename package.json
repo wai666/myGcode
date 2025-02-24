@@ -30,3 +30,8 @@
     "stylus": "^0.64.0"
   }
 }
+"scripts": {
+  "dev": "hexo s --port 5000 --config _config.yml,_config.local.yml",
+  "build": "hexo generate --bail",
+  "deploy": "npm run build && hexo deploy"
+}
