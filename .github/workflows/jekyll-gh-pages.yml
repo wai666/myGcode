@@ -1,0 +1,59 @@
+# .github/workflows/deploy.yml
+name: Deploy Hexo to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]  # 触发分支需与你的开发分支一致
+  workflow_dispatch:      # 允许手动触发
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 步骤1：检出代码
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive  # 重要！用于拉取主题子模块
+
+      # 步骤2：配置 Node.js 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'   # 推荐使用 LTS 版本
+          cache: 'npm'
+
+      # 步骤3：安装 Hexo 及依赖
+      - name: Install dependencies
+        run: |
+          npm install -g hexo-cli
+          npm install
+
+      # 步骤4：生成静态文件
+      - name: Build site
+        run: |
+          hexo clean
+          hexo generate --silent
+
+      # 步骤5：配置 Pages 部署
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # 步骤6：上传构建产物
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./public  # Hexo 默认输出目录
+
+      # 步骤7：部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v3
